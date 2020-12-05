@@ -1,0 +1,17 @@
+html, body {
+    font-family: -apple-system, BlinkMacSystemFont, sans-serif;
+    text-align: center;
+}
+
+.main {
+    padding: 40;
+    text-align: center;
+}
+
+h2, p {
+    text-align: center;
+}
+
+p.ex1 {
+    font-size: 30px;
+  }
