@@ -3,7 +3,7 @@ Section: Utilities
 Maintainer: propr <propruhh@gmail.com>
 Architecture: iphoneos-arm
 Version: 0.6.9
-Depends: jq, jp2a, neofetch
+Depends: jq, jp2a, neofetch, curl
 Filename: debs/nekofetch_0.6.9.deb
 Size: 2600
 MD5sum: 47c0043b59596356305531d870ee7651
