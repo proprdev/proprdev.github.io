@@ -1,14 +1,14 @@
-Package: 
-Name: 
-Version: 
-Architecture: 
-Description: 
-Maintainer: 
-Author: 
-Section: 
-Depends: 
-Filename: 
-Size: 
-MD5sum: 
-SHA1: 
-SHA256: 
+Package: com.propr.nekofetch
+Section: Utilities
+Maintainer: propr <propruhh@gmail.com>
+Architecture: iphoneos-arm
+Version: 0.6.9
+Depends: jq
+Filename: debs/nekofetch.deb
+Size: (MODIFY)
+MD5sum: a8e0a1e2646c0ddbcfca69110d6ed050
+SHA1: fbab44d47fa8d3052328a81d22ede749a6e8b639
+SHA256: e026353f478043b5825c9d86af8992710c2df8a935ed41be2888a4dcc514e5e5
+Description: dont install this
+Name: nekofetch
+Author: propr and bbaovanc
