@@ -5,10 +5,10 @@ Architecture: iphoneos-arm
 Version: 0.6.9
 Depends: jq, jp2a, neofetch, curl
 Filename: debs/nekofetch_0.6.9.deb
-Size: 2660
-MD5sum: c35f810117eb1a9f6031bf8cee9c1b2a
-SHA1: 298717ce6e502b4c4a0690308684447f073b6bec
-SHA256: a985fe050c5a00265918f7d5e5a16063cab7aa11da5b86a4948d7fba7ed0190b
+Size: 2656
+MD5sum: 25a4b685be05f3329c21e3cec4cddf52
+SHA1: ceb4e2068eb2bc79cbc1c4a1b187507b4414c5d3
+SHA256: e72f808d2603842db8201aaed4762fa130b305b50738b1605bb4414dfbeb1b94
 Description: neofetch with nekos
 Name: nekofetch
 Author: propr and bbaovanc
