@@ -6,9 +6,9 @@ Version: 0.6.9
 Depends: jq, jp2a, neofetch, curl
 Filename: debs/nekofetch_0.6.9.deb
 Size: 2660
-MD5sum: 47c0043b59596356305531d870ee7651
-SHA1: d5c5bbb12c95ac693a995634365d80a1ae97c946
-SHA256: 979c6520af15b3e23828ff4728a27e7200a282335317af81f0359a2dd4d5a161
+MD5sum: c35f810117eb1a9f6031bf8cee9c1b2a
+SHA1: 298717ce6e502b4c4a0690308684447f073b6bec
+SHA256: a985fe050c5a00265918f7d5e5a16063cab7aa11da5b86a4948d7fba7ed0190b
 Description: neofetch with nekos
 Name: nekofetch
 Author: propr and bbaovanc
