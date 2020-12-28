@@ -5,4 +5,8 @@ Version: 1.0
 Codename: ios
 Architectures: iphoneos-arm
 Components: main
-Description: this is propr's repo
+Description: fun tweaks, tools, and apps
+
+SHA256:
+ 497e651360cfccfa04a572820094905c028061a00412fbd953fde8f996d43a2b 543 Packages.bz2
+ 51d554a8d2f383ada30ca9c737df89ca7e26a6ea8f54d019f702c3587ae94282 544 Packages.xz
