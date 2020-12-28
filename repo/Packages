@@ -11,7 +11,7 @@ SHA1: ceb4e2068eb2bc79cbc1c4a1b187507b4414c5d3
 SHA256: e72f808d2603842db8201aaed4762fa130b305b50738b1605bb4414dfbeb1b94
 Description: neofetch with nekos
 Name: nekofetch
-Author: propr and bbaovanc
+Author: bbaovanc
 
 Package: com.propr.issuefinderios
 Section: bad
