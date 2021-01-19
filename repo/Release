@@ -5,8 +5,8 @@ Version: 1.0
 Codename: ios
 Architectures: iphoneos-arm
 Components: main
-Description: worst repo | catgirls for life
+Description: worst repo
 
 SHA256:
- 25ae18a7de3e55b7e98ca8c755be5d80c370bd54f897746a5bec3d4262f2fe0e 778 Packages.bz2
- d1919bc3ced6166e7de6b920067ff9fad7540443ac53b9488ad28a42c9347b64 732 Packages.xz
+ 5679be8be2bc946412204780139e3958ae225f48fcf234d13694a0c6d1b5d07e 797 Packages.bz2
+ 02fab9fe523648bb3c686354e527efb237d0cddae2203011700ce5ca9fa050a1 740 Packages.xz
