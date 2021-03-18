@@ -8,4 +8,5 @@
 * Hide Icon Labels
 * Hide Testflight Dot
 * Hide Notification Badges
+* Hide App Library Blur
 * Set Number of Icons On Your Dock
