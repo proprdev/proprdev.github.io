@@ -13,6 +13,7 @@
 * Hide Icon Labels
 * Hide Testflight Dot
 * Hide Notification Badges
+* Disable App Library
 * Hide App Library Blur
 * Hide Folder Title
 * Disable Icon Fly In
