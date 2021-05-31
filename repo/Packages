@@ -1,0 +1,31 @@
+Package: com.propr.disguiseyourself
+Version: 1.1.3
+Architecture: iphoneos-arm
+Maintainer: propr
+Installed-Size: 328
+Depends: mobilesubstrate (>= 0.9.5000)
+Filename: debs/com.propr.disguiseyourself_1.1.3_iphoneos-arm.deb
+Size: 21744
+MD5sum: b217a3ed088e84ed9a09de14187dcc8a
+SHA1: 4b23a7e2ff16bf1d8e017b3b39ee4dc205d916de
+SHA256: 6409fa1cfd6957c0f04ab434e9a01eff7dcd77f541cd1f9de7b21991f583b809
+Section: Tweaks
+Description: Change your name!
+Name: DisguiseYourself
+
+Package: com.propr.joe
+Version: 0.3.3.1
+Architecture: iphoneos-arm
+Maintainer: propr
+Installed-Size: 468
+Depends: mobilesubstrate, preferenceloader, firmware (>=14.0)
+Conflicts: com.captinc.batchomatic
+Filename: debs/com.propr.joe_0.3.3.1_iphoneos-arm.deb
+Size: 77820
+MD5sum: 899a16c26f4fd388910755f0b87374f4
+SHA1: fdb77c4651c609fb99f250850ee7e72a451c8365
+SHA256: e94d3d9d37dc36f487931bbe13250e4cb8cdf1b7bae4f93e2178588e888cfd62
+Section: Tweaks
+Description: joe mama made a customization tweak
+Name: Joe
+
