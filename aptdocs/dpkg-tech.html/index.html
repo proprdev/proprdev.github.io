@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>dpkg technical manual</title>
+    <meta name="generator" content="DocBook XSL Stylesheets Vsnapshot"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="home" href="index.html" title="dpkg technical manual"/>
+    <link rel="next" href="ch1.html" title="Chapter 1. Quick summary of dpkg's external interface"/>
+  </head>
+  <body>
+    <div class="navheader">
+      <table width="100%" summary="Navigation header">
+        <tr>
+          <th colspan="3" align="center">dpkg technical manual</th>
+        </tr>
+        <tr>
+          <td align="left"> </td>
+          <th width="60%" align="center"> </th>
+          <td align="right"> <a accesskey="n" href="ch1.html">Next</a></td>
+        </tr>
+      </table>
+      <hr/>
+    </div>
+    <div xml:lang="en" class="book">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h1 class="title"><a id="idm1"/>dpkg technical manual</h1>
+          </div>
+          <div>
+            <div class="authorgroup">
+              <div class="author">
+                <h3 class="author">Tom Lees</h3>
+                <code class="email">&lt;<a class="email" href="mailto:tom@lpsg.demon.co.uk">tom@lpsg.demon.co.uk</a>&gt;</code>
+              </div>
+            </div>
+          </div>
+          <div>
+            <p class="releaseinfo">Version 2.2.3</p>
+            <hr xmlns=""/>
+          </div>
+          <div>
+            <p class="copyright">Copyright © 1997 Tom Lees</p>
+          </div>
+          <div>
+            <div class="legalnotice">
+              <a id="idm14"/>
+              <p class="legalnotice-title">
+                <strong>License Notice</strong>
+              </p>
+              <p>
+APT and this document are free software; you can redistribute them and/or
+modify them under the terms of the GNU General Public License as published by
+the Free Software Foundation; either version 2 of the License, or (at your
+option) any later version.
+</p>
+              <p>
+For more details, on Debian systems, see the file
+/usr/share/common-licenses/GPL for the full license.
+</p>
+            </div>
+          </div>
+          <div>
+            <div class="abstract">
+              <p class="title">
+                <strong>Abstract</strong>
+              </p>
+              <p>
+This document describes the minimum necessary workings for the APT dselect
+replacement. It gives an overall specification of what its external interface
+must look like for compatibility, and also gives details of some internal
+quirks.
+</p>
+            </div>
+          </div>
+        </div>
+        <hr/>
+      </div>
+      <div class="toc">
+        <p>
+          <strong>Table of Contents</strong>
+        </p>
+        <dl class="toc">
+          <dt>
+            <span class="chapter">
+              <a href="ch1.html">1. Quick summary of dpkg's external interface</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="ch1.html#control">1.1. Control files</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="ch1.html#s1.2">1.2. The dpkg status area</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="ch1.html#s1.3">1.3. The dpkg library files</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="ch1.html#s1.4">1.4. The "dpkg" command-line utility</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="chapter">
+              <a href="ch2.html">2. dpkg-deb and .deb file internals</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="ch2.html#s2.1">2.1. The .deb archive format</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="ch2.html#s2.2">2.2. The dpkg-deb command-line</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+          <dt>
+            <span class="chapter">
+              <a href="ch3.html">3. dpkg internals</a>
+            </span>
+          </dt>
+          <dd>
+            <dl>
+              <dt>
+                <span class="section">
+                  <a href="ch3.html#updates">3.1. Updates</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="ch3.html#s3.2">3.2. What happens when dpkg reads the database</a>
+                </span>
+              </dt>
+              <dt>
+                <span class="section">
+                  <a href="ch3.html#s3.3">3.3. How dpkg compares version numbers</a>
+                </span>
+              </dt>
+            </dl>
+          </dd>
+        </dl>
+      </div>
+    </div>
+    <div class="navfooter">
+      <hr/>
+      <table width="100%" summary="Navigation footer">
+        <tr>
+          <td align="left"> </td>
+          <td align="center"> </td>
+          <td align="right"> <a accesskey="n" href="ch1.html">Next</a></td>
+        </tr>
+        <tr>
+          <td align="left" valign="top"> </td>
+          <td align="center"> </td>
+          <td align="right" valign="top"> Chapter 1. Quick summary of dpkg's external interface</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

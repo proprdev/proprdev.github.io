@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Chapter 3. dpkg internals</title>
+    <meta name="generator" content="DocBook XSL Stylesheets Vsnapshot"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="home" href="index.html" title="dpkg technical manual"/>
+    <link rel="up" href="index.html" title="dpkg technical manual"/>
+    <link rel="prev" href="ch2.html" title="Chapter 2. dpkg-deb and .deb file internals"/>
+  </head>
+  <body>
+    <div class="navheader">
+      <table width="100%" summary="Navigation header">
+        <tr>
+          <th colspan="3" align="center">Chapter 3. dpkg internals</th>
+        </tr>
+        <tr>
+          <td align="left"><a accesskey="p" href="ch2.html">Prev</a> </td>
+          <th width="60%" align="center"> </th>
+          <td align="right"> </td>
+        </tr>
+      </table>
+      <hr/>
+    </div>
+    <div class="chapter">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h1 class="title"><a id="ch3"/>Chapter 3. dpkg internals</h1>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <p>
+          <strong>Table of Contents</strong>
+        </p>
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="ch3.html#updates">3.1. Updates</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="ch3.html#s3.2">3.2. What happens when dpkg reads the database</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="ch3.html#s3.3">3.3. How dpkg compares version numbers</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <p>
+This chapter describes the internals of dpkg itself. Although the low-level
+formats are quite simple, what dpkg does in certain cases often does not make
+sense.
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title"><a id="updates"/>3.1. Updates</h2>
+            </div>
+          </div>
+        </div>
+        <p>
+This describes the /var/lib/dpkg/updates directory. The function of this
+directory is somewhat strange, and seems only to be used internally. A
+function called cleanupdates is called whenever the database is scanned. This
+function in turn uses
+<span class="citerefentry"><span class="refentrytitle">scandir</span>(3)</span>,
+to sort the files in this directory. Files who names do not consist entirely
+of digits are discarded. dpkg also causes a fatal error if any of the
+filenames are different lengths.
+</p>
+        <p>
+After having scanned the directory, dpkg in turn parses each file the same way
+it parses the status file (they are sorted by the scandir to be in numerical
+order). After having done this, it then writes the status information back to
+the "status" file, and removes all the "updates" files.
+</p>
+        <p>
+These files are created internally by dpkg's "checkpoint" function, and are
+cleaned up when dpkg exits cleanly.
+</p>
+        <p>
+Judging by the use of the updates directory I would call it a Journal. Inorder
+to efficiently ensure the complete integrity of the status file dpkg will
+"checkpoint" or journal all of it's activities in the updates directory. By
+merging the contents of the updates directory (in order!!) against the original
+status file it can get the precise current state of the system, even in the
+event of a system failure while dpkg is running.
+</p>
+        <p>
+The other option would be to sync-rewrite the status file after each operation,
+which would kill performance.
+</p>
+        <p>
+It is very important that any program that uses the status file abort if the
+updates directory is not empty!  The user should be informed to run dpkg
+manually (what options though??) to correct the situation.
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title"><a id="s3.2"/>3.2. What happens when dpkg reads the database</h2>
+            </div>
+          </div>
+        </div>
+        <p>
+First, the status file is read. This gives dpkg an initial idea of the
+packages that are there. Next, the updates files are read in, overriding the
+status file, and if necessary, the status file is re-written, and updates files
+are removed. Finally, the available file is read. The available file is read
+with flags which preclude dpkg from updating any status information from it,
+though - installed version, etc., and is also told to record that the packages
+it reads this time are available, not installed.
+</p>
+        <p>
+More information on updates is given above.
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title"><a id="s3.3"/>3.3. How dpkg compares version numbers</h2>
+            </div>
+          </div>
+        </div>
+        <p>
+Version numbers consist of three parts: the epoch, the upstream version, and
+the Debian revision. Dpkg compares these parts in that order. If the epochs
+are different, it returns immediately, and so on.
+</p>
+        <p>
+However, the important part is how it compares the versions which are
+essentially stored as just strings. These are compared in two distinct
+parts: those consisting of numerical characters (which are evaluated, and
+then compared), and those consisting of other characters. When comparing
+non-numerical parts, they are compared as the character values (ASCII),
+but non-alphabetical characters are considered "greater than" alphabetical
+ones. Also note that longer strings (after excluding differences where
+numerical values are equal) are considered "greater than" shorter ones.
+</p>
+        <p>
+Here are a few examples of how these rules apply:-
+</p>
+        <pre class="screen">
+15 &gt; 10
+0010 == 10
+
+d.r &gt; dsr
+32.d.r == 0032.d.r
+d.rnr &lt; d.rnrn
+</pre>
+      </div>
+    </div>
+    <div class="navfooter">
+      <hr/>
+      <table width="100%" summary="Navigation footer">
+        <tr>
+          <td align="left"><a accesskey="p" href="ch2.html">Prev</a> </td>
+          <td align="center"> </td>
+          <td align="right"> </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top">Chapter 2. dpkg-deb and .deb file internals </td>
+          <td align="center">
+            <a accesskey="h" href="index.html">Home</a>
+          </td>
+          <td align="right" valign="top"> </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

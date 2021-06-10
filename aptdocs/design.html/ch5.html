@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Chapter 5. Data flow and conversions analysis.</title>
+    <meta name="generator" content="DocBook XSL Stylesheets Vsnapshot"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="home" href="index.html" title="The APT project design document"/>
+    <link rel="up" href="index.html" title="The APT project design document"/>
+    <link rel="prev" href="ch4.html" title="Chapter 4. Modules and interfaces"/>
+  </head>
+  <body>
+    <div class="navheader">
+      <table width="100%" summary="Navigation header">
+        <tr>
+          <th colspan="3" align="center">Chapter 5. Data flow and conversions analysis.</th>
+        </tr>
+        <tr>
+          <td align="left"><a accesskey="p" href="ch4.html">Prev</a> </td>
+          <th width="60%" align="center"> </th>
+          <td align="right"> </td>
+        </tr>
+      </table>
+      <hr/>
+    </div>
+    <div class="chapter">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h1 class="title"><a id="ch5"/>Chapter 5. Data flow and conversions analysis.</h1>
+          </div>
+        </div>
+      </div>
+      <pre class="screen">
+                                                          ____________
+                                                       __\|ftp modules|
+                                                      /  /|___________|
+                                    _ ____________   /     ________________
+                                    |    update   | /     |mount/local file|
+        |==========================&gt;|   module    |/_____\|  traversals    |
+        |                           |_____________|      /|________________|
+        |                             ^        ^
+        |                             |        |               ______________
+  ______|_______    _ _____ ______    |   _____v________      \|            |
+ |Configuration |   |configuration|   |   |Packages Files|  ===|Status file |
+ |  module      |&lt;=&gt;|    data     |   |   |______________| /  /|____________|
+ |______________|   |_____________|   |        ^          /
+         ^                            |        |         /
+         |                            | _______v_______|/_
+         |                            | |              |    ________________
+         |                            | |              |/_\|   Dependency  |
+         |                            | |backing store |\ /|     Module    |
+         |                            | |______________|  _|_______________|
+         |                             \       ^          /|       ^
+         |                              \      |         /         |
+         |                              _\|____v_______|/__    ____v_______
+         |_____________________________\| User interaction|    |    dpkg   |
+                                       /|_________________|&lt;==&gt;  Invoker  |
+                                                               |___________|
+</pre>
+      <p>
+dpkg also interacts with status and available files.
+</p>
+      <p>
+The backing store and the associated data structures are the core of APT. All
+modules essentially revolve around the backing store, feeding it data, adding
+and manipulating links and relationships between data in the backing store,
+allowing the user to interact with and modify the data in the backing store,
+and finally writing it out as the status file and possibly issuing directives
+to dpkg.
+</p>
+      <p>
+The other focal point for APT is the user interface.
+</p>
+    </div>
+    <div class="navfooter">
+      <hr/>
+      <table width="100%" summary="Navigation footer">
+        <tr>
+          <td align="left"><a accesskey="p" href="ch4.html">Prev</a> </td>
+          <td align="center"> </td>
+          <td align="right"> </td>
+        </tr>
+        <tr>
+          <td align="left" valign="top">Chapter 4. Modules and interfaces </td>
+          <td align="center">
+            <a accesskey="h" href="index.html">Home</a>
+          </td>
+          <td align="right" valign="top"> </td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

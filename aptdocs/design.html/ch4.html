@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Chapter 4. Modules and interfaces</title>
+    <meta name="generator" content="DocBook XSL Stylesheets Vsnapshot"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="home" href="index.html" title="The APT project design document"/>
+    <link rel="up" href="index.html" title="The APT project design document"/>
+    <link rel="prev" href="ch3.html" title="Chapter 3. Procedural description"/>
+    <link rel="next" href="ch5.html" title="Chapter 5. Data flow and conversions analysis."/>
+  </head>
+  <body>
+    <div class="navheader">
+      <table width="100%" summary="Navigation header">
+        <tr>
+          <th colspan="3" align="center">Chapter 4. Modules and interfaces</th>
+        </tr>
+        <tr>
+          <td align="left"><a accesskey="p" href="ch3.html">Prev</a> </td>
+          <th width="60%" align="center"> </th>
+          <td align="right"> <a accesskey="n" href="ch5.html">Next</a></td>
+        </tr>
+      </table>
+      <hr/>
+    </div>
+    <div class="chapter">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h1 class="title"><a id="ch4"/>Chapter 4. Modules and interfaces</h1>
+          </div>
+        </div>
+      </div>
+      <div class="variablelist">
+        <dl class="variablelist">
+          <dt>
+            <span class="term">The user interface module</span>
+          </dt>
+          <dd>
+            <p>
+Look at Behan Webster's documentation.
+</p>
+          </dd>
+          <dt>
+            <span class="term">Widget set</span>
+          </dt>
+          <dd>
+            <p>
+Related closely to above Could some one present design decisions of the widget
+set here?
+</p>
+          </dd>
+          <dt>
+            <span class="term">pdate Module</span>
+          </dt>
+          <dd>
+            <p>
+Distinct versions of the same package are recorded separately, but if multiple
+Packages files contain the same version of a package, then only the first one
+is recorded. For this reason, the least expensive update source should be
+listed first (local file system is better than a remote ftp site)
+</p>
+            <p>
+This module should interact with the user interface module to set and change
+configuration parameters for the modules listed below. It needs to record that
+information in an on disk data file, to be read on future invocations.
+</p>
+            <div class="orderedlist">
+              <ol class="orderedlist">
+                <li class="listitem">
+                  <p>
+FTP methods
+</p>
+                </li>
+                <li class="listitem">
+                  <p>
+mount and file traversal module(s)?
+</p>
+                </li>
+                <li class="listitem">
+                  <p>
+Other methods ???
+</p>
+                </li>
+              </ol>
+            </div>
+          </dd>
+          <dt>
+            <span class="term">Status file parser/generator</span>
+          </dt>
+          <dd>
+            <p>
+The status file records the current state of the system, listing the packages
+installed, etc. The status file is also one method of communicating with dpkg,
+since it is perfectly permissible for the user to use APT to request packages
+be updated, put others on hold, mark other for removal, etc, and then run
+<code class="literal">dpkg -BORGiE</code> on a file system.
+</p>
+          </dd>
+          <dt>
+            <span class="term">Package file parser/generator</span>
+          </dt>
+          <dd>
+            <p>
+Related to above. Handle multiple Packages files, from different
+sources. Each package contains a link back to the packages file structure
+that contains details about the origin of the data.
+</p>
+          </dd>
+          <dt>
+            <span class="term">Dependency module</span>
+          </dt>
+          <dd>
+            <div class="itemizedlist">
+              <ul class="itemizedlist">
+                <li class="listitem">
+                  <p>
+dependency/conflict determination and linking
+</p>
+                </li>
+                <li class="listitem">
+                  <p>
+reverse dependency generator. Maybe merged with above
+</p>
+                </li>
+              </ul>
+            </div>
+          </dd>
+          <dt>
+            <span class="term">Package ordering Module</span>
+          </dt>
+          <dd>
+            <p>
+Create an ordering of the actions to be taken.
+</p>
+          </dd>
+          <dt>
+            <span class="term">Event generator</span>
+          </dt>
+          <dd>
+            <p>
+module to interact with dpkg
+</p>
+          </dd>
+        </dl>
+      </div>
+    </div>
+    <div class="navfooter">
+      <hr/>
+      <table width="100%" summary="Navigation footer">
+        <tr>
+          <td align="left"><a accesskey="p" href="ch3.html">Prev</a> </td>
+          <td align="center"> </td>
+          <td align="right"> <a accesskey="n" href="ch5.html">Next</a></td>
+        </tr>
+        <tr>
+          <td align="left" valign="top">Chapter 3. Procedural description </td>
+          <td align="center">
+            <a accesskey="h" href="index.html">Home</a>
+          </td>
+          <td align="right" valign="top"> Chapter 5. Data flow and conversions analysis.</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

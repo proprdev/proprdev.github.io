@@ -1,0 +1,645 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Chapter 1. Quick summary of dpkg's external interface</title>
+    <meta name="generator" content="DocBook XSL Stylesheets Vsnapshot"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="home" href="index.html" title="dpkg technical manual"/>
+    <link rel="up" href="index.html" title="dpkg technical manual"/>
+    <link rel="prev" href="index.html" title="dpkg technical manual"/>
+    <link rel="next" href="ch2.html" title="Chapter 2. dpkg-deb and .deb file internals"/>
+  </head>
+  <body>
+    <div class="navheader">
+      <table width="100%" summary="Navigation header">
+        <tr>
+          <th colspan="3" align="center">Chapter 1. Quick summary of dpkg's external interface</th>
+        </tr>
+        <tr>
+          <td align="left"><a accesskey="p" href="index.html">Prev</a> </td>
+          <th width="60%" align="center"> </th>
+          <td align="right"> <a accesskey="n" href="ch2.html">Next</a></td>
+        </tr>
+      </table>
+      <hr/>
+    </div>
+    <div class="chapter">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h1 class="title"><a id="ch1"/>Chapter 1. Quick summary of dpkg's external interface</h1>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <p>
+          <strong>Table of Contents</strong>
+        </p>
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="ch1.html#control">1.1. Control files</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="ch1.html#s1.2">1.2. The dpkg status area</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="ch1.html#s1.3">1.3. The dpkg library files</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="ch1.html#s1.4">1.4. The "dpkg" command-line utility</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title"><a id="control"/>1.1. Control files</h2>
+            </div>
+          </div>
+        </div>
+        <p>
+The basic dpkg package control file supports the following major features:-
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist">
+            <li class="listitem">
+              <p>
+5 types of dependencies:-
+</p>
+              <div class="itemizedlist">
+                <ul class="itemizedlist">
+                  <li class="listitem">
+                    <p>
+Pre-Depends, which must be satisfied before a package may be unpacked
+</p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+Depends, which must be satisfied before a package may be configured
+</p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+Recommends, to specify a package which if not installed may severely limit the
+usefulness of the package
+</p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+Suggests, to specify a package which may increase the productivity of the
+package
+</p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+Conflicts, to specify a package which must NOT be installed in order for the
+package to be configured
+</p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+Breaks, to specify a package which is broken by the package and which should
+therefore not be configured while broken
+</p>
+                  </li>
+                </ul>
+              </div>
+              <p>
+Each of these dependencies can specify a version and a dependency on that
+version, for example "&lt;= 0.5-1", "== 2.7.2-1", etc. The comparators
+available are:-
+</p>
+              <div class="itemizedlist">
+                <ul class="itemizedlist">
+                  <li class="listitem">
+                    <p>
+"&lt;&lt;" - less than
+</p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+"&lt;=" - less than or equal to
+</p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+"&gt;&gt;" - greater than
+</p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+"&gt;=" - greater than or equal to
+</p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+"==" - equal to
+</p>
+                  </li>
+                </ul>
+              </div>
+            </li>
+            <li class="listitem">
+              <p>
+The concept of "virtual packages", which many other packages may provide,
+using the Provides mechanism. An example of this is the "httpd" virtual
+package, which all web servers should provide. Virtual package names may be
+used in dependency headers. However, current policy is that virtual packages
+do not support version numbers, so dependencies on virtual packages with
+versions will always fail.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+Several other control fields, such as Package, Version, Description, Section,
+Priority, etc., which are mainly for classification purposes. The package
+name must consist entirely of lowercase characters, plus the characters '+',
+'-', and '.'. Fields can extend across multiple lines - on the second and
+subsequent lines, there is a space at the beginning instead of a field name
+and a ':'. Empty lines must consist of the text " .", which will be ignored,
+as will the initial space for other continuation lines. This feature is
+usually only used in the Description field.
+</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title"><a id="s1.2"/>1.2. The dpkg status area</h2>
+            </div>
+          </div>
+        </div>
+        <p>
+The "dpkg status area" is the term used to refer to the directory where dpkg
+keeps its various status files (GNU would have you call it the dpkg shared
+state directory). This is always, on Debian systems, /var/lib/dpkg. However,
+the default directory name should not be hard-coded, but #define'd, so that
+alteration is possible (it is available via configure in dpkg 1.4.0.9 and
+above). Of course, in a library, code should be allowed to override the
+default directory, but the default should be part of the library (so that
+the user may change the dpkg admin dir simply by replacing the library).
+</p>
+        <p>
+Dpkg keeps a variety of files in its status area. These are discussed later
+on in this document, but a quick summary of the files is here:-
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist">
+            <li class="listitem">
+              <p>
+available - this file contains a concatenation of control information from all
+the packages which dpkg knows about. This is updated using the dpkg commands
+"--update-avail &lt;file&gt;", "--merge-avail &lt;file&gt;", and
+"--clear-avail".
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+status - this file contains information on the following things for every
+package:-
+</p>
+              <div class="itemizedlist">
+                <ul class="itemizedlist">
+                  <li class="listitem">
+                    <p>
+Whether it is installed, not installed, unpacked, removed, failed
+configuration, or half-installed (deconfigured in favour of another package).
+</p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+Whether it is selected as install, hold, remove, or purge.
+</p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+If it is "ok" (no installation problems), or "not-ok".
+</p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+It usually also contains the section and priority (so that dselect may classify
+packages not in available)
+</p>
+                  </li>
+                  <li class="listitem">
+                    <p>
+For packages which did not initially appear in the "available" file when they
+were installed, the other control information for them.
+</p>
+                  </li>
+                </ul>
+              </div>
+              <p>
+The exact format for the "Status:" field is:
+</p>
+              <pre class="screen">
+      Status: Want Flag Status
+</pre>
+              <p>
+Where <em class="replaceable"><code>Want</code></em> may be one of
+<span class="emphasis"><em>unknown</em></span>, <span class="emphasis"><em>install</em></span>,
+<span class="emphasis"><em>hold</em></span>, <span class="emphasis"><em>deinstall</em></span>,
+<span class="emphasis"><em>purge</em></span>. <em class="replaceable"><code>Flag</code></em> may
+be one of <span class="emphasis"><em>ok</em></span>, <span class="emphasis"><em>reinstreq</em></span>.
+<em class="replaceable"><code>Status</code></em> may
+be one of <span class="emphasis"><em>not-installed</em></span>, <span class="emphasis"><em>config-files</em></span>,
+<span class="emphasis"><em>half-installed</em></span>, <span class="emphasis"><em>unpacked</em></span>,
+<span class="emphasis"><em>half-configured</em></span> and <span class="emphasis"><em>installed</em></span>.
+The states are as follows:-
+</p>
+              <div class="variablelist">
+                <dl class="variablelist">
+                  <dt>
+                    <span class="term">not-installed</span>
+                  </dt>
+                  <dd>
+                    <p>
+No files are installed from the package, it has no config files left, it
+uninstalled cleanly if it ever was installed.
+</p>
+                  </dd>
+                  <dt>
+                    <span class="term">unpacked</span>
+                  </dt>
+                  <dd>
+                    <p>
+The basic files have been unpacked (and are listed in
+/var/lib/dpkg/info/[package].list. There are config files present, but the
+postinst script has _NOT_ been run.
+</p>
+                  </dd>
+                  <dt>
+                    <span class="term">half-configured</span>
+                  </dt>
+                  <dd>
+                    <p>
+The package was installed and unpacked, but the postinst script failed in some
+way.
+</p>
+                  </dd>
+                  <dt>
+                    <span class="term">installed</span>
+                  </dt>
+                  <dd>
+                    <p>
+All files for the package are installed, and the configuration was also
+successful.
+</p>
+                  </dd>
+                  <dt>
+                    <span class="term">half-installed</span>
+                  </dt>
+                  <dd>
+                    <p>
+An attempt was made to remove the package but there was a failure in the
+prerm script.
+</p>
+                  </dd>
+                  <dt>
+                    <span class="term">config-files</span>
+                  </dt>
+                  <dd>
+                    <p>
+The package was "removed", not "purged". The config files are left, but
+nothing else.
+</p>
+                  </dd>
+                </dl>
+              </div>
+              <p>
+The two last items are only left in dpkg for compatibility - they are
+understood by it, but never written out in this form.
+</p>
+              <p>
+Please see the dpkg source code, <code class="literal">lib/parshelp.c</code>,
+<span class="emphasis"><em>statusinfos</em></span>, <span class="emphasis"><em>eflaginfos</em></span> and
+<span class="emphasis"><em>wantinfos</em></span> for more details.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+info - this directory contains files from the control archive of every
+package currently installed. They are installed with a prefix of
+"&lt;packagename&gt;.". In addition to this, it also contains a file
+called &lt;package&gt;.list for every package, which contains a list
+of files. Note also that the control file is not copied into here; it
+is instead found as part of status or available.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+methods - this directory is reserved for "method"-specific files - each
+"method" has a subdirectory underneath this directory (or at least,
+it can have). In addition, there is another subdirectory "mnt", where
+misc. filesystems (floppies, CD-ROMs, etc.) are mounted.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+alternatives - directory used by the "update-alternatives" program. It
+contains one file for each "alternatives" interface, which contains
+information about all the needed symlinked files for each alternative.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+diversions - file used by the "dpkg-divert" program. Each diversion takes
+three lines. The first is the package name (or ":" for user diversion), the
+second the original filename, and the third the diverted filename.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+updates - directory used internally by dpkg. This is discussed later, in the
+section <a class="xref" href="ch3.html#updates" title="3.1. Updates">Section 3.1, “Updates”</a>.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+parts - temporary directory used by dpkg-split
+</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title"><a id="s1.3"/>1.3. The dpkg library files</h2>
+            </div>
+          </div>
+        </div>
+        <p>
+These files are installed under /usr/lib/dpkg (usually), but
+/usr/local/lib/dpkg is also a possibility (as Debian policy dictates). Under
+this directory, there is a "methods" subdirectory. The methods subdirectory in
+turn contains any number of subdirectories for each general method processor
+(note that one set of method scripts can, and is, used for more than one of
+the methods listed under dselect).
+</p>
+        <p>
+The following files may be found in each of these subdirectories:-
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist">
+            <li class="listitem">
+              <p>
+names - One line per method, two-digit priority to appear on menu at
+beginning, followed by a space, the name, and then another space and
+the short description.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+desc.&lt;name&gt; - Contains the long description displayed by dselect
+when the cursor is put over the &lt;name&gt; method.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+setup - Script or program which sets up the initial values to be used
+by this method. Called with first argument as the status area directory
+(/var/lib/dpkg), second argument as the name of the method (as in the
+directory name), and the third argument as the option (as in the names file).
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+install - Script/program called when the "install" option of dselect is run
+with this method. Same arguments as for setup.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+update - Script/program called when the "update" option of dselect is
+run. Same arguments as for setup/install.
+</p>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title"><a id="s1.4"/>1.4. The "dpkg" command-line utility</h2>
+            </div>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h3 class="title"><a id="s1.4.1"/>1.4.1. "Documented" command-line interfaces</h3>
+              </div>
+            </div>
+          </div>
+          <p>
+As yet unwritten. You can refer to the other manuals for now. See
+<span class="citerefentry"><span class="refentrytitle">dpkg</span>(8)</span>.
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h3 class="title"><a id="s1.4.2"/>1.4.2. Environment variables which dpkg responds to</h3>
+              </div>
+            </div>
+          </div>
+          <div class="itemizedlist">
+            <ul class="itemizedlist">
+              <li class="listitem">
+                <p>
+SHELL - used to determine which shell to run.
+</p>
+              </li>
+              <li class="listitem">
+                <p>
+CC - used as the C compiler to call to determine the target architecture. The
+default is "gcc".
+</p>
+              </li>
+              <li class="listitem">
+                <p>
+PATH - dpkg checks that it can find at least the following files in the path
+when it wants to run package installation scripts, and gives an error if it
+cannot find all of them:-
+</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist">
+                    <li class="listitem">
+                      <p>
+ldconfig
+</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+start-stop-daemon
+</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+install-info
+</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+update-rc.d
+</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h3 class="title"><a id="s1.4.3"/>1.4.3. Assertions</h3>
+              </div>
+            </div>
+          </div>
+          <p>
+The dpkg utility itself is required for quite a number of packages, even if
+they have been installed with a tool totally separate from dpkg. The reason
+for this is that some packages, in their pre-installation scripts, check that
+your version of dpkg supports certain features. This was broken from the
+start, and it should have actually been a control file header "Dpkg-requires",
+or similar. What happens is that the configuration scripts will abort or
+continue according to the exit code of a call to dpkg, which will stop them
+from being wrongly configured.
+</p>
+          <p>
+These special command-line options, which simply return as true or false are
+all prefixed with "--assert-". Here is a list of them (without the prefix):-
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist">
+              <li class="listitem">
+                <p>
+support-predepends - Returns success or failure according to whether a version
+of dpkg which supports predepends properly (1.1.0 or above) is installed,
+according to the database.
+</p>
+              </li>
+              <li class="listitem">
+                <p>
+working-epoch - Return success or failure according to whether a version of
+dpkg which supports epochs in version properly (1.4.0.7 or above) is installed,
+according to the database.
+</p>
+              </li>
+            </ul>
+          </div>
+          <p>
+Both these options check the status database to see what version of the
+"dpkg" package is installed, and check it against a known working version.
+</p>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h3 class="title"><a id="s1.4.4"/>1.4.4. --predep-package</h3>
+              </div>
+            </div>
+          </div>
+          <p>
+This strange option is described as follows in the source code:
+</p>
+          <pre class="screen">
+/* Print a single package which:
+ *  (a) is the target of one or more relevant predependencies.
+ *  (b) has itself no unsatisfied pre-dependencies.
+ * If such a package is present output is the Packages file entry,
+ *  which can be massaged as appropriate.
+ * Exit status:
+ *  0 = a package printed, OK
+ *  1 = no suitable package available
+ *  2 = error
+ */
+</pre>
+          <p>
+On further inspection of the source code, it appears that what is does is
+this:-
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist">
+              <li class="listitem">
+                <p>
+Looks at the packages in the database which are selected as "install",
+and are installed.
+</p>
+              </li>
+              <li class="listitem">
+                <p>
+It then looks at the Pre-Depends information for each of these packages
+from the available file. When it find a package for which any of the
+pre-dependencies are not satisfied, it breaks from the loop through the
+packages.
+</p>
+              </li>
+              <li class="listitem">
+                <p>
+It then looks through the unsatisfied pre-dependencies, and looks for
+packages which would satisfy this pre-dependency, stopping on the first
+it finds. If it finds none, it bombs out with an error.
+</p>
+              </li>
+              <li class="listitem">
+                <p>
+It then continues this for every dependency of the initial package.
+</p>
+              </li>
+            </ul>
+          </div>
+          <p>
+Eventually, it writes out the record of all the packages to satisfy the
+pre-dependencies. This is used by the disk method to make sure that its
+dependency ordering is correct. What happens is that all pre-depending
+packages are first installed, then it runs dpkg -iGROEB on the directory,
+which installs in the order package files are found. Since pre-dependencies
+mean that a package may not even be unpacked unless they are satisfied, it
+is necessary to do this (usually, since all the package files are unpacked
+in one phase, the configured in another, this is not needed).
+</p>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <hr/>
+      <table width="100%" summary="Navigation footer">
+        <tr>
+          <td align="left"><a accesskey="p" href="index.html">Prev</a> </td>
+          <td align="center"> </td>
+          <td align="right"> <a accesskey="n" href="ch2.html">Next</a></td>
+        </tr>
+        <tr>
+          <td align="left" valign="top">dpkg technical manual </td>
+          <td align="center">
+            <a accesskey="h" href="index.html">Home</a>
+          </td>
+          <td align="right" valign="top"> Chapter 2. dpkg-deb and .deb file internals</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

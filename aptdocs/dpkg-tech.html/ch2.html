@@ -1,0 +1,320 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Chapter 2. dpkg-deb and .deb file internals</title>
+    <meta name="generator" content="DocBook XSL Stylesheets Vsnapshot"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="home" href="index.html" title="dpkg technical manual"/>
+    <link rel="up" href="index.html" title="dpkg technical manual"/>
+    <link rel="prev" href="ch1.html" title="Chapter 1. Quick summary of dpkg's external interface"/>
+    <link rel="next" href="ch3.html" title="Chapter 3. dpkg internals"/>
+  </head>
+  <body>
+    <div class="navheader">
+      <table width="100%" summary="Navigation header">
+        <tr>
+          <th colspan="3" align="center">Chapter 2. dpkg-deb and .deb file internals</th>
+        </tr>
+        <tr>
+          <td align="left"><a accesskey="p" href="ch1.html">Prev</a> </td>
+          <th width="60%" align="center"> </th>
+          <td align="right"> <a accesskey="n" href="ch3.html">Next</a></td>
+        </tr>
+      </table>
+      <hr/>
+    </div>
+    <div class="chapter">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h1 class="title"><a id="ch2"/>Chapter 2. dpkg-deb and .deb file internals</h1>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <p>
+          <strong>Table of Contents</strong>
+        </p>
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="ch2.html#s2.1">2.1. The .deb archive format</a>
+            </span>
+          </dt>
+          <dt>
+            <span class="section">
+              <a href="ch2.html#s2.2">2.2. The dpkg-deb command-line</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <p>
+This chapter describes the internals to the "dpkg-deb" tool, which is used by
+"dpkg" as a back-end. dpkg-deb has its own tar extraction functions, which is
+the source of many problems, as it does not support long filenames, using
+extension blocks.
+</p>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title"><a id="s2.1"/>2.1. The .deb archive format</h2>
+            </div>
+          </div>
+        </div>
+        <p>
+The main principal of the new-format Debian archive (I won't describe the old
+format - for that have a look at deb-old.5), is that the archive really is an
+archive - as used by "ar" and friends. However, dpkg-deb uses this format
+internally, rather than calling "ar". Inside this archive, there are usually
+the following members:-
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist">
+            <li class="listitem">
+              <p>
+debian-binary
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+control.tar.gz
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+data.tar.gz
+</p>
+            </li>
+          </ul>
+        </div>
+        <p>
+The debian-binary member consists simply of the string "2.0", indicating
+the format version. control.tar.gz contains the control files (and scripts),
+and the data.tar.gz contains the actual files to populate the filesystem
+with. Both tarfiles extract straight into the current directory. Information
+on the tar formats can be found in the GNU tar info page. Since dpkg-deb
+calls "tar -cf" to build packages, the Debian packages use the GNU extensions.
+</p>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title"><a id="s2.2"/>2.2. The dpkg-deb command-line</h2>
+            </div>
+          </div>
+        </div>
+        <p>
+dpkg-deb documents itself thoroughly with its '--help' command-line
+option. However, I am including a reference to these for
+completeness. dpkg-deb supports the following options:-
+</p>
+        <div class="itemizedlist">
+          <ul class="itemizedlist">
+            <li class="listitem">
+              <p>
+--build (-b) &lt;dir&gt; - builds a .deb archive, takes a directory which
+contains all the files as an argument. Note that the directory
+&lt;dir&gt;/DEBIAN will be packed separately into the control archive.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+--contents (-c) &lt;debfile&gt; - Lists the contents of the "data.tar.gz"
+member.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+--control (-e) &lt;debfile&gt; - Extracts the control archive into a directory
+called DEBIAN. Alternatively, with another argument, it will extract it into a
+different directory.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+--info (-I) &lt;debfile&gt; - Prints the contents of the "control" file in the
+control archive to stdout. Alternatively, giving it other arguments will cause
+it to print the contents of those files instead.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+--field (-f) &lt;debfile&gt; &lt;field&gt; ... - Prints any number of fields
+from the "control" file. Giving it extra arguments limits the fields it prints
+to only those specified. With no command-line arguments other than a filename,
+it is equivalent to -I and just the .deb filename.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+--extract (-x) &lt;debfile&gt; &lt;dir&gt; - Extracts the data archive of a
+debian package under the directory &lt;dir&gt;.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+--vextract (-X) &lt;debfile&gt; &lt;dir&gt; - Same as --extract, except it
+is equivalent of giving tar the '-v' option - it prints the filenames as it
+extracts them.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+--fsys-tarfile &lt;debfile&gt; - This option outputs a gunzip'd version of
+data.tar.gz to stdout.
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+--new - sets the archive format to be used to the new Debian format
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+--old - sets the archive format to be used to the old Debian format
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+--debug - Tells dpkg-deb to produce debugging output
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+--nocheck - Tells dpkg-deb not to check the sanity of the control file
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+--help (-h) - Gives a help message
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+--version - Shows the version number
+</p>
+            </li>
+            <li class="listitem">
+              <p>
+--licence/--license (UK/US spellings) - Shows a brief outline of the GPL
+</p>
+            </li>
+          </ul>
+        </div>
+        <div class="section">
+          <div class="titlepage">
+            <div>
+              <div>
+                <h3 class="title"><a id="s2.2.1"/>2.2.1. Internal checks used by dpkg-deb when building packages</h3>
+              </div>
+            </div>
+          </div>
+          <p>
+Here is a list of the internal checks used by dpkg-deb when building
+packages. It is in the order they are done.
+</p>
+          <div class="itemizedlist">
+            <ul class="itemizedlist">
+              <li class="listitem">
+                <p>
+First, the output Debian archive argument, if it is given, is checked using
+stat. If it is a directory, an internal flag is set. This check is only made
+if the archive name is specified explicitly on the command-line. If the
+argument was not given, the default is the directory name, with ".deb"
+appended.
+</p>
+              </li>
+              <li class="listitem">
+                <p>
+Next, the control file is checked, unless the --nocheck flag was specified on
+the command-line. dpkg-deb will bomb out if the second argument to --build was
+a directory, and --nocheck was specified. Note that dpkg-deb will not be able
+to determine the name of the package in this case. In the control file, the
+following things are checked:-
+</p>
+                <div class="itemizedlist">
+                  <ul class="itemizedlist">
+                    <li class="listitem">
+                      <p>
+The package name is checked to see if it contains any invalid characters (see
+<a class="xref" href="ch1.html#control" title="1.1. Control files">Section 1.1, “Control files”</a> for this).
+</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+The priority field is checked to see if it uses standard values, and
+user-defined values are warned against. However, note that this check is now
+redundant, since the control file no longer contains the priority - the
+changes file now does this.
+</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+The control file fields are then checked against the standard list of fields
+which appear in control files, and any "user-defined" fields are reported as
+warnings.
+</p>
+                    </li>
+                    <li class="listitem">
+                      <p>
+dpkg-deb then checks that the control file contains a valid version number.
+</p>
+                    </li>
+                  </ul>
+                </div>
+              </li>
+              <li class="listitem">
+                <p>
+After this, in the case where a directory was specified to build the .deb file
+in, the filename is created as "directory/pkg_ver.deb" or
+"directory/pkg_ver_arch.deb", depending on whether the control file contains
+an architecture field.
+</p>
+              </li>
+              <li class="listitem">
+                <p>
+Next, dpkg-deb checks for the &lt;dir&gt;/DEBIAN directory. It complains if it
+doesn't exist, or if it has permissions &lt; 0755, or &gt; 0775.
+</p>
+              </li>
+              <li class="listitem">
+                <p>
+It then checks that all the files in this subdir are either symlinks or plain
+files, and have permissions between 0555 and 0775.
+</p>
+              </li>
+              <li class="listitem">
+                <p>
+The conffiles file is then checked to see if the filenames are too
+long. Warnings are produced for each that is. After this, it checks
+that the package provides initial copies of each of these conffiles,
+and that they are all plain files.
+</p>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="navfooter">
+      <hr/>
+      <table width="100%" summary="Navigation footer">
+        <tr>
+          <td align="left"><a accesskey="p" href="ch1.html">Prev</a> </td>
+          <td align="center"> </td>
+          <td align="right"> <a accesskey="n" href="ch3.html">Next</a></td>
+        </tr>
+        <tr>
+          <td align="left" valign="top">Chapter 1. Quick summary of dpkg's external interface </td>
+          <td align="center">
+            <a accesskey="h" href="index.html">Home</a>
+          </td>
+          <td align="right" valign="top"> Chapter 3. dpkg internals</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>

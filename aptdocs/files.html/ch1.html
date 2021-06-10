@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <title>Chapter 1. Introduction</title>
+    <meta name="generator" content="DocBook XSL Stylesheets Vsnapshot"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link rel="home" href="index.html" title="APT Files"/>
+    <link rel="up" href="index.html" title="APT Files"/>
+    <link rel="prev" href="index.html" title="APT Files"/>
+    <link rel="next" href="ch2.html" title="Chapter 2. Files"/>
+  </head>
+  <body>
+    <div class="navheader">
+      <table width="100%" summary="Navigation header">
+        <tr>
+          <th colspan="3" align="center">Chapter 1. Introduction</th>
+        </tr>
+        <tr>
+          <td align="left"><a accesskey="p" href="index.html">Prev</a> </td>
+          <th width="60%" align="center"> </th>
+          <td align="right"> <a accesskey="n" href="ch2.html">Next</a></td>
+        </tr>
+      </table>
+      <hr/>
+    </div>
+    <div class="chapter">
+      <div class="titlepage">
+        <div>
+          <div>
+            <h1 class="title"><a id="ch1"/>Chapter 1. Introduction</h1>
+          </div>
+        </div>
+      </div>
+      <div class="toc">
+        <p>
+          <strong>Table of Contents</strong>
+        </p>
+        <dl class="toc">
+          <dt>
+            <span class="section">
+              <a href="ch1.html#s1.1">1.1. General</a>
+            </span>
+          </dt>
+        </dl>
+      </div>
+      <div class="section">
+        <div class="titlepage">
+          <div>
+            <div>
+              <h2 class="title"><a id="s1.1"/>1.1. General</h2>
+            </div>
+          </div>
+        </div>
+        <p>
+This document serves two purposes. The first is to document the installed
+directory structure and the format and purpose of each file. The second
+purpose is to document how APT views the Debian archive and deals with multiple
+package files.
+</p>
+        <p>
+The var directory structure is as follows:
+</p>
+        <pre class="screen">
+  /var/lib/apt/
+		lists/
+		       partial/
+		periodic/
+		extended_states
+		cdroms.list
+  /var/cache/apt/
+		  archives/
+		          partial/
+		  pkgcache.bin
+		  srcpkgcache.bin
+  /etc/apt/
+	    sources.list.d/
+	    apt.conf.d/
+	    preferences.d/
+	    trusted.gpg.d/
+	    sources.list
+	    apt.conf
+	    apt_preferences
+	    trusted.gpg
+  /usr/lib/apt/
+	        methods/
+			 bzip2
+			 cdrom
+			 copy
+			 file
+			 ftp
+			 gpgv
+			 gzip
+			 http
+			 https
+			 lzma
+			 rred
+			 rsh
+			 ssh
+</pre>
+        <p>
+As is specified in the FHS 2.1 /var/lib/apt is used for application data that
+is not expected to be user modified. /var/cache/apt is used for regeneratable
+data and is where the package cache and downloaded .debs go. /etc/apt is the
+place where configuration should happen and /usr/lib/apt is the place where the
+apt and other packages can place binaries which can be used by the acquire
+system of APT.
+</p>
+      </div>
+    </div>
+    <div class="navfooter">
+      <hr/>
+      <table width="100%" summary="Navigation footer">
+        <tr>
+          <td align="left"><a accesskey="p" href="index.html">Prev</a> </td>
+          <td align="center"> </td>
+          <td align="right"> <a accesskey="n" href="ch2.html">Next</a></td>
+        </tr>
+        <tr>
+          <td align="left" valign="top">APT Files </td>
+          <td align="center">
+            <a accesskey="h" href="index.html">Home</a>
+          </td>
+          <td align="right" valign="top"> Chapter 2. Files</td>
+        </tr>
+      </table>
+    </div>
+  </body>
+</html>
