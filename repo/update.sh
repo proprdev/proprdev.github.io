@@ -37,5 +37,7 @@ echo " $packagesxz_sha256 $packagesxz_size" >> Release
 echo " $packagesbz2_sha256 $packagesbz2_size" >> Release
 echo " $packagesgz_sha256 $packagesgz_size" >> Release
 echo " $packageszst_sha256 $packageszst_size" >> Release
+
 gpg -abs -u FC282CF270D1BD398126BBC49C0AF3464244CF37 -o Release.gpg Release
+
 echo "Done"
