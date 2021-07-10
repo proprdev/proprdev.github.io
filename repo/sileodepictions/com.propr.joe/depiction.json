@@ -33,7 +33,7 @@
           },
           {
             "class": "DepictionMarkdownView",
-            "markdown": "- # Uses libpropr"
+            "markdown": "# Uses libpropr"
           },
         ],
       }
