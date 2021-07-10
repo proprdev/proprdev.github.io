@@ -1,0 +1,18 @@
+Origin: propr's repo
+Label: propr's repo
+Suite: stable
+Version: 1.0
+Codename: proprrepo
+Architectures: iphoneos-arm
+Components: main
+Description: worst repo
+MD5Sum:
+ e8ed8c97dab86466d6043df3e6f037ec 1436 Packages
+ 3386c59e955d2c265619797d6b5add36 786 Packages.bz2
+ 32c29ebad2e50ead90bdba538790eaba 740 Packages.gz
+ 5180fabc56e7332543ad73aba6a7120d 726 Packages.zst
+SHA256:
+ 0a45abd15b8bd40157169f802cb039efc084376d73d1803ebc25198ccda2140d 1436 Packages
+ 1592acfedf39ffb9daff038a9bd1e4aec4cf8214bdadc84247ff461c6cc1c443 786 Packages.bz2
+ 048dfec48deb40230257759e1aaebb8b99a5205d9cefc02da395b63aec92d3d4 740 Packages.gz
+ f94f39c0de7b75eea28ef5f0631bd10944f175f73c82814395924df3420dde5d 726 Packages.zst
