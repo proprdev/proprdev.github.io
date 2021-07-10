@@ -29,3 +29,19 @@ Section: Tweaks
 Description: joe mama made a customization tweak
 Name: Joe
 
+Package: com.propr.libpropr
+Version: 1.0.0
+Architecture: iphoneos-arm
+Maintainer: propr
+Installed-Size: 100
+Filename: debs/com.propr.libpropr_1.0.0_iphoneos-arm.deb
+Size: 2968
+MD5sum: 30cf98550c4541d5ee33122b84e2528d
+SHA1: 2b0463ef5668011305998ab5554db2a1eea7a19a
+SHA256: 29e421bb955169f2d4e9d769202527a2682b09e94e1d57d03cce72556d0b940c
+Section: System
+Description: An awesome library of some sort!!
+Tag: role::developer
+Author: propr
+Name: libpropr
+
