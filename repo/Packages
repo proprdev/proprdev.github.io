@@ -21,13 +21,15 @@ Installed-Size: 468
 Depends: mobilesubstrate, preferenceloader, firmware (>=14.0), com.propr.libpropr
 Conflicts: com.captinc.batchomatic
 Filename: debs/com.propr.joe_0.4.0_iphoneos-arm.deb
-Size: 77710
-MD5sum: 4f9f0c783cb931a4991654b1ae1f9f99
-SHA1: e3eaf78e19905653a2e30665db5b7a879543fe96
-SHA256: c1b82d6e95cbacc10b13317071a075823c212d4958fffe6d4bc63235cd045fa5
+Size: 77770
+MD5sum: 99b73a158ff4851ce296bd14433858c8
+SHA1: 01dd054fede78c01af249ed7a3c858b106e5854e
+SHA256: 1d5a2e0ab8e0c6ce0f52d9e595a25844eacb6ae24db3e6c4537f54c4014577dd
 Section: Tweaks
 Description: joe mama made a customization tweak
+Depiction: https://proprdev.github.io/repo/depictions/com.propr.joe.html
 Name: Joe
+Sileodepiction: https://proprdev.github.io/repo/sileodepictions/com.propr.joe/depiction.json
 
 Package: com.propr.libpropr
 Version: 1.0.0
