@@ -14,17 +14,17 @@ Description: Change your name!
 Name: DisguiseYourself
 
 Package: com.propr.joe
-Version: 0.3.3.1
+Version: 0.4.0
 Architecture: iphoneos-arm
 Maintainer: propr
 Installed-Size: 468
-Depends: mobilesubstrate, preferenceloader, firmware (>=14.0)
+Depends: mobilesubstrate, preferenceloader, firmware (>=14.0), com.propr.libpropr
 Conflicts: com.captinc.batchomatic
-Filename: debs/com.propr.joe_0.3.3.1_iphoneos-arm.deb
-Size: 77820
-MD5sum: 899a16c26f4fd388910755f0b87374f4
-SHA1: fdb77c4651c609fb99f250850ee7e72a451c8365
-SHA256: e94d3d9d37dc36f487931bbe13250e4cb8cdf1b7bae4f93e2178588e888cfd62
+Filename: debs/com.propr.joe_0.4.0_iphoneos-arm.deb
+Size: 77710
+MD5sum: 4f9f0c783cb931a4991654b1ae1f9f99
+SHA1: e3eaf78e19905653a2e30665db5b7a879543fe96
+SHA256: c1b82d6e95cbacc10b13317071a075823c212d4958fffe6d4bc63235cd045fa5
 Section: Tweaks
 Description: joe mama made a customization tweak
 Name: Joe
@@ -33,12 +33,12 @@ Package: com.propr.libpropr
 Version: 1.0.0
 Architecture: iphoneos-arm
 Maintainer: propr
-Installed-Size: 100
+Installed-Size: 180
 Filename: debs/com.propr.libpropr_1.0.0_iphoneos-arm.deb
-Size: 2968
-MD5sum: 30cf98550c4541d5ee33122b84e2528d
-SHA1: 2b0463ef5668011305998ab5554db2a1eea7a19a
-SHA256: 29e421bb955169f2d4e9d769202527a2682b09e94e1d57d03cce72556d0b940c
+Size: 3838
+MD5sum: 1bf4e84f4d44e32aefc639ab35b20af3
+SHA1: 3b4be712cba2d40e2077ebad042dcaff3be02ca9
+SHA256: d9ebe181c0b2002cf7ac19bb6de359a93d959007f74788e35b932718281a8633
 Section: System
 Description: An awesome library of some sort!!
 Tag: role::developer
